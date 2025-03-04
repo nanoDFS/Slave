@@ -1,14 +1,14 @@
 package filestreamer
 
 import (
+	"context"
 	"fmt"
 
-	fs "github.com/nanoDFS/Slave/server/filestreamer/proto"
 	"google.golang.org/grpc/metadata"
 )
 
-func ReadMetadata(stream fs.FileStreamingService_WriteServer, key string) (string, error) {
-	md, ok := metadata.FromIncomingContext(stream.Context())
+func ReadMetadata(ctx context.Context, key string) (string, error) {
+	md, ok := metadata.FromIncomingContext(ctx)
 	if !ok {
 		return "", fmt.Errorf("no metadata found")
 	}

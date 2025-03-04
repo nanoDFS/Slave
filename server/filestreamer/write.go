@@ -11,13 +11,13 @@ import (
 )
 
 func (t Server) Write(stream fs.FileStreamingService_WriteServer) error {
-	token, err := ReadMetadata(stream, "auth")
+	token, err := ReadMetadata(stream.Context(), "auth")
 	claim, ok := auth.NewAuth().AuthorizeWrite(token)
 	if err != nil || !ok {
 		return fmt.Errorf("failed to authorize %v", err)
 	}
 
-	ChunkId, err := ReadMetadata(stream, "chunk_id")
+	ChunkId, err := ReadMetadata(stream.Context(), "chunk_id")
 	if err != nil {
 		return fmt.Errorf("invalid chunk id")
 	}
