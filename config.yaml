@@ -1,0 +1,4 @@
+Chunk:
+  size: 10
+Master:
+  address: ":9001"
