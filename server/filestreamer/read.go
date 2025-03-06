@@ -12,7 +12,8 @@ import (
 
 func (t Server) Read(req *fs.ReadReq, stream fs.FileStreamingService_ReadServer) error {
 	token, err := ReadMetadata(stream.Context(), "auth")
-	claim, ok := auth.NewAuth().AuthorizeWrite(token)
+	claim, ok := auth.NewAuth().AuthorizeRead(token)
+
 	if err != nil || !ok {
 		return fmt.Errorf("failed to authorize %v", err)
 	}
@@ -22,7 +23,7 @@ func (t Server) Read(req *fs.ReadReq, stream fs.FileStreamingService_ReadServer)
 		return fmt.Errorf("invalid chunk id")
 	}
 
-	fileSystem := filesystem.NewFileSystem("./")
+	fileSystem := filesystem.NewFileSystem("./test_root")
 	file, err := fileSystem.Open(filesystem.FileOpts{FileId: claim.FileId, ChunkId: ChunkId})
 	if err != nil || read(stream, file) != nil {
 		return fmt.Errorf("failed to read from file: %v", err)
