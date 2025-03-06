@@ -22,7 +22,7 @@ func (t Server) Write(stream fs.FileStreamingService_WriteServer) error {
 		return fmt.Errorf("invalid chunk id")
 	}
 
-	fileSystem := filesystem.NewFileSystem("./")
+	fileSystem := filesystem.NewFileSystem("./test_root")
 	file, err := fileSystem.Create(filesystem.FileOpts{FileId: claim.FileId, ChunkId: ChunkId})
 	if err != nil || write(stream, file) != nil {
 		return fmt.Errorf("failed to write to file: %v", err)

@@ -7,7 +7,7 @@ import (
 )
 
 func TestRegister(t *testing.T) {
-	registerer := register.NewRegister(":9800")
+	registerer := register.NewRegister(":9800", ":8000")
 	if err := registerer.Register(); err != nil {
 		t.Errorf("%v", err)
 	}

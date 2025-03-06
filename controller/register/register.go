@@ -11,13 +11,14 @@ import (
 )
 
 type RegisterChunkServer struct {
-	masterAddr string
-	healthAddr string
+	masterAddr    string
+	monitorAddr   string
+	streamingAddr string
 }
 
-func NewRegister(healthAddr string) RegisterChunkServer {
+func NewRegister(monitorAddr string, streamingAddr string) RegisterChunkServer {
 	addr := config.LoadConfig().Master.Addr
-	return RegisterChunkServer{masterAddr: addr, healthAddr: healthAddr}
+	return RegisterChunkServer{masterAddr: addr, monitorAddr: monitorAddr, streamingAddr: streamingAddr}
 }
 
 func (t RegisterChunkServer) Register() error {
@@ -28,7 +29,7 @@ func (t RegisterChunkServer) Register() error {
 	defer conn.Close()
 
 	client := cs_pb.NewChunkServerRegisterServiceClient(conn)
-	resp, err := client.Register(context.Background(), &cs_pb.ChunkServerRegisterReq{Address: t.healthAddr, Space: 10000})
+	resp, err := client.Register(context.Background(), &cs_pb.ChunkServerRegisterReq{MonitorAddress: t.monitorAddr, StreamingAddress: t.streamingAddr, Space: 10000})
 	if err != nil || !resp.Status {
 		return fmt.Errorf("failed to register: %v", err)
 	}
