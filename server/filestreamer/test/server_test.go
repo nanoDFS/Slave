@@ -75,7 +75,7 @@ func TestRead(t *testing.T) {
 	}
 	defer conn.Close()
 
-	token, _ := acl.NewJWT().Generate(&acl.Claims{UserId: "random", FileId: "some-random", Mode: acl.Write, Size: 10278})
+	token, _ := acl.NewJWT().Generate(&acl.Claims{UserId: "random", FileId: "some-random", Mode: acl.Read, Size: 10278})
 
 	md := metadata.Pairs(
 		"auth", string(token),
