@@ -13,10 +13,10 @@ message ChunkServer {
 }
 
 message ChunkServerRegisterReq {
-    string address = 1;
-    int64 space = 2;
+    string monitor_address = 1;
+    string streaming_address = 2;
+    int64 space = 3;
 }
-
 message RegisterResp {
     bool status = 1;
 }

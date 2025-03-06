@@ -4,16 +4,19 @@ import (
 	"fmt"
 
 	"github.com/nanoDFS/Slave/controller/register"
-	"github.com/nanoDFS/Slave/server/monitor"
+	"github.com/nanoDFS/Slave/server"
 )
 
 func main() {
-	registerer := register.NewRegister(":9800")
+
+	monitorAddr, streamingAddr := ":9800", ":8000"
+
+	registerer := register.NewRegister(monitorAddr, streamingAddr)
 	if err := registerer.Register(); err != nil {
 		fmt.Printf("%v", err)
 	}
 
-	monitor, _ := monitor.NewMonitorServerRunner(":9800")
+	monitor := server.NewChunkServerRunner(monitorAddr, streamingAddr)
 	monitor.Listen()
 
 	select {}
