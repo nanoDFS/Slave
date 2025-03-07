@@ -5,10 +5,11 @@ import (
 
 	"github.com/nanoDFS/Slave/controller/register"
 	"github.com/nanoDFS/Slave/server"
+	"github.com/nanoDFS/Slave/utils"
 )
 
 func main() {
-
+	utils.InitLog()
 	monitorAddr, streamingAddr := ":9800", ":8000"
 
 	registerer := register.NewRegister(monitorAddr, streamingAddr)

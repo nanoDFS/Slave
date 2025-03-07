@@ -5,12 +5,15 @@ build:
 	go build -o $(BINARY_NAME) $(SRC)
 
 run:
+	make clean
+	make build
 	go run $(SRC)
 
 test:
 	go test ./...
 
 clean:
+	rm -rf test_root/*
 	rm -f $(BINARY_NAME)
 
 fmt:
