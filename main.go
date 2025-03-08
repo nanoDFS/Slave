@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/nanoDFS/Slave/controller/register"
 	"github.com/nanoDFS/Slave/server"
@@ -10,7 +11,7 @@ import (
 
 func main() {
 	utils.InitLog()
-	monitorAddr, streamingAddr := ":9800", ":8000"
+	monitorAddr, streamingAddr := os.Getenv("MONITOR_ADDR"), os.Getenv("STREAMING_ADDR")
 
 	registerer := register.NewRegister(monitorAddr, streamingAddr)
 	if err := registerer.Register(); err != nil {

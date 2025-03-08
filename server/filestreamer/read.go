@@ -8,6 +8,7 @@ import (
 	"github.com/nanoDFS/Slave/controller/auth"
 	"github.com/nanoDFS/Slave/filesystem"
 	fs "github.com/nanoDFS/Slave/server/filestreamer/proto"
+	"github.com/nanoDFS/Slave/utils/config"
 )
 
 func (t Server) Read(req *fs.ReadReq, stream fs.FileStreamingService_ReadServer) error {
@@ -36,7 +37,7 @@ func (t Server) Read(req *fs.ReadReq, stream fs.FileStreamingService_ReadServer)
 }
 
 func read(stream fs.FileStreamingService_ReadServer, file *os.File) error {
-	buff := make([]byte, 1024)
+	buff := make([]byte, config.LoadConfig().Chunk.PayloadSize)
 	for {
 		n, err := file.Read(buff)
 		if err != nil {
