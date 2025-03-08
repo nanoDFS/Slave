@@ -11,7 +11,8 @@ import (
 
 type Config struct {
 	Chunk struct {
-		Size int64 `yaml:"size"`
+		Size        int64 `yaml:"size"`
+		PayloadSize int64 `yaml:"payloadsize"`
 	} `yaml:"Chunk"`
 	Master struct {
 		Addr string `yaml:"address"`
