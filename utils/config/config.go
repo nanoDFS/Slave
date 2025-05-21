@@ -28,7 +28,7 @@ func LoadConfig() *Config {
 	if config != nil {
 		return config
 	}
-	data, err := os.ReadFile("/Users/nagarajpoojari/Desktop/learn/nanoDFS/Slave/config.yaml")
+	data, err := os.ReadFile("./config.yaml")
 	if err != nil {
 		log.Fatalf("error reading file: %v", err)
 	}

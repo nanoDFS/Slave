@@ -30,7 +30,7 @@ func (t RegisterChunkServer) Register() error {
 
 	client := cs_pb.NewChunkServerRegisterServiceClient(conn)
 	resp, err := client.Register(context.Background(), &cs_pb.ChunkServerRegisterReq{MonitorAddress: t.monitorAddr, StreamingAddress: t.streamingAddr, Space: 10000})
-	if err != nil || !resp.Status {
+	if err != nil || !resp.Success {
 		return fmt.Errorf("failed to register: %v", err)
 	}
 	return nil

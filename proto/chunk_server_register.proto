@@ -18,5 +18,5 @@ message ChunkServerRegisterReq {
     int64 space = 3;
 }
 message RegisterResp {
-    bool status = 1;
+    bool success = 1;
 }

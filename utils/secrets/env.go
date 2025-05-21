@@ -13,7 +13,7 @@ var mu sync.RWMutex
 
 func Load() {
 	mu.Lock()
-	err := godotenv.Load("/Users/nagarajpoojari/Desktop/learn/nanoDFS/Slave/.env")
+	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatalf("Error loading .env file, %v", err)
 	}
